@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/my-controller")
@@ -19,12 +20,12 @@ public class MyController {
         return ResponseEntity.status(HttpStatus.OK).body("Id: " + id);
     }
 
-    @GetMapping("")
+    @GetMapping("/query")
     public ResponseEntity getWithQuery(@RequestParam String id) {
         return ResponseEntity.status(HttpStatus.OK).body("Id: " + id);
     }
 
-    @GetMapping("")
+    @GetMapping("/query-map")
     public ResponseEntity getWithQueryMapping(@RequestParam Map<String, String> params) {
         return ResponseEntity.status(HttpStatus.OK).body("query: " + params.entrySet());
     }
@@ -32,6 +33,11 @@ public class MyController {
     @PostMapping("")
     public ResponseEntity post(@RequestBody String username) {
         return ResponseEntity.status(201).body("username:" + username);
+    }
+
+    @GetMapping("/headers")
+    public ResponseEntity<Object> getWithHeaders(@RequestHeader  Map<String, String> headers) {
+        return ResponseEntity.status(HttpStatus.OK).body("header: " + headers.entrySet());
     }
 
 }
